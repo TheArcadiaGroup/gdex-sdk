@@ -1,6 +1,6 @@
 # GDEX SDK
 
-Official SDK for integrating GDEX trading services into your applications.
+Official SDK for integrating GDEX.pro trading services into your applications.
 
 ## Features
 
