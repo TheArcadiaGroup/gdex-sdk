@@ -22,7 +22,6 @@ import {
   PerpDex,
 } from './types';
 import {
-  encrypt,
   generateNonce,
   encodeOrderData,
   encodeWithdrawData,

@@ -4,7 +4,7 @@
  * Handles encryption/decryption of payloads for secure API communication
  */
 
-import { createHash, createCipheriv, createDecipheriv, randomBytes } from 'crypto';
+import { createHash, createCipheriv, createDecipheriv } from 'crypto';
 
 const ALGORITHM = 'aes-256-cbc';
 
@@ -121,7 +121,7 @@ export function encodeCancelData(params: {
 export function createEncryptedPayload(
   apiKey: string,
   userId: string,
-  action: string,
+  _action: string,
   data: string,
   signature: string
 ): string {
