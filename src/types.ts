@@ -222,3 +222,49 @@ export interface PerpDex {
   /** Deployer address */
   deployer: string;
 }
+
+// ============================================================================
+// User & Deposit Types
+// ============================================================================
+
+export interface UserInfo {
+  /** Chain ID */
+  chainId: number;
+  /** GDEX deposit address - send funds here to deposit */
+  address: string;
+  /** Native token balance (ETH) on deposit address */
+  balance: number;
+  /** Whether this is a new user */
+  isNewUser: boolean;
+  /** User's referral code */
+  refCode: string;
+  /** User settings */
+  setting: {
+    quickBuySlippage: number;
+    quickSellSlippage: number;
+    buyPriorityFee: number;
+    sellPriorityFee: number;
+  };
+  /** Energy limits for actions */
+  energies: {
+    energyLimit: number;
+    energyUsed: number;
+    energyAvailable: number;
+  };
+}
+
+export interface DepositToken {
+  /** Token contract address */
+  address: string;
+  /** Token symbol */
+  symbol: string;
+  /** Token decimals */
+  decimals: number;
+  /** Minimum deposit amount */
+  minDeposit: string;
+}
+
+export interface DepositTokens {
+  /** Map of chainId to supported tokens */
+  [chainId: number]: DepositToken[];
+}

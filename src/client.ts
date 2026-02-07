@@ -20,6 +20,8 @@ import {
   MarketInfo,
   OrderBook,
   PerpDex,
+  UserInfo,
+  DepositTokens,
 } from './types';
 import {
   generateNonce,
@@ -111,6 +113,78 @@ export class GdexClient {
       params: { address, dex },
     });
     return response.data.data?.orders || [];
+  }
+
+  /**
+   * Get user info including GDEX deposit address
+   * 
+   * The returned address is your GDEX custodial wallet. Send USDC or other 
+   * supported tokens to this address to fund your trading account.
+   * 
+   * @param walletAddress - Your connected wallet address (the one you signed up with)
+   * @param sessionKey - Session key from authentication
+   * @param chainId - Chain ID (42161 for Arbitrum)
+   * 
+   * @example
+   * ```typescript
+   * const userInfo = await client.getUserInfo('0xMyWallet', sessionKey, 42161);
+   * console.log(`Deposit address: ${userInfo.address}`);
+   * console.log(`Balance: $${userInfo.balance}`);
+   * ```
+   */
+  async getUserInfo(
+    walletAddress: string,
+    sessionKey: string,
+    chainId: number
+  ): Promise<UserInfo | null> {
+    const response = await this.http.get<UserInfo>('/user', {
+      params: { userId: walletAddress, data: sessionKey, chainId },
+    });
+    return response.data || null;
+  }
+
+  /**
+   * Get your GDEX deposit address
+   * 
+   * This is a convenience method that returns just the deposit address.
+   * Send USDC (or other supported tokens) on Arbitrum to this address
+   * to fund your trading account.
+   * 
+   * @param walletAddress - Your connected wallet address
+   * @param sessionKey - Session key from authentication
+   * @param chainId - Chain ID (default: 42161 for Arbitrum)
+   * 
+   * @example
+   * ```typescript
+   * const depositAddress = await client.getDepositAddress('0xMyWallet', sessionKey);
+   * console.log(`Send USDC to: ${depositAddress}`);
+   * ```
+   */
+  async getDepositAddress(
+    walletAddress: string,
+    sessionKey: string,
+    chainId: number = 42161
+  ): Promise<string | null> {
+    const userInfo = await this.getUserInfo(walletAddress, sessionKey, chainId);
+    return userInfo?.address || null;
+  }
+
+  /**
+   * Get supported deposit tokens by chain
+   * 
+   * Returns a mapping of chain IDs to supported tokens for deposit.
+   * Currently, Arbitrum (42161) is the primary supported chain.
+   * 
+   * @example
+   * ```typescript
+   * const tokens = await client.getDepositTokens();
+   * const arbitrumTokens = tokens[42161];
+   * console.log('Supported on Arbitrum:', arbitrumTokens.map(t => t.symbol));
+   * ```
+   */
+  async getDepositTokens(): Promise<DepositTokens> {
+    const response = await this.http.get<ApiResponse<{ tokens: DepositTokens }>>('/hl/deposit_tokens');
+    return response.data.data?.tokens || {};
   }
 
   // ==========================================================================

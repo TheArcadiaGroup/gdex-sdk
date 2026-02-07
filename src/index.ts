@@ -60,6 +60,11 @@ export type {
   
   // HIP-3 Perp DEX
   PerpDex,
+  
+  // User & Deposit
+  UserInfo,
+  DepositToken,
+  DepositTokens,
 } from './types';
 
 // Crypto utilities (for advanced use cases)

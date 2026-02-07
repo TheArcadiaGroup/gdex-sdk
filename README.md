@@ -215,6 +215,28 @@ try {
 }
 ```
 
+## Documentation
+
+For comprehensive documentation, see the [docs folder](./docs/):
+
+| Guide | Description |
+|-------|-------------|
+| [Getting Started](./docs/getting-started.md) | Installation and first steps |
+| [Deposits](./docs/deposits.md) | Fund your trading account |
+| [Trading Guide](./docs/trading.md) | Orders, TP/SL, positions |
+| [HIP-3 Assets](./docs/hip3-assets.md) | Builder-deployed perp DEXes |
+| [Copy Trading](./docs/copy-trading.md) | Replicate top traders |
+| [API Reference](./docs/api-reference.md) | Complete method docs |
+
+### Code Examples
+
+| Example | Description |
+|---------|-------------|
+| [Basic Trading](./docs/examples/basic-trading.ts) | Market/limit orders, cancels |
+| [HIP-3 Trading](./docs/examples/hip3-trading.ts) | Trade pre-IPO stocks, commodities |
+| [Copy Trading](./docs/examples/copy-trading.ts) | Start/stop copy trading |
+| [Portfolio Monitor](./docs/examples/portfolio-monitor.ts) | Track positions and alerts |
+
 ## API Reference
 
 ### GdexClient
